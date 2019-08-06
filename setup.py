@@ -24,10 +24,14 @@ class InstallWrapper(install):
     @staticmethod
     def _post_install():
         from stealthchromedriver._util import _check_binaries_exist
-        print("Collecting binaries...this can take a minute...")
-        spec = importlib.util.find_spec(__title__)
-        pkgdir = os.path.dirname(spec.origin)
-        check_path = os.path.join(pkgdir, 'bin')
+        from distutils.sysconfig import get_python_lib
+        lib_path = get_python_lib()
+        package_path = os.path.join(lib_path, __title__)
+        check_path = os.path.join(package_path, 'bin')
+        # print("Collecting binaries...this can take a minute...")
+        # spec = importlib.util.find_spec(__title__)
+        # pkgdir = os.path.dirname(spec.origin)
+        # check_path = os.path.join(pkgdir, 'bin')
         print(''
               'check path:', check_path)
         _check_binaries_exist(check_path)
@@ -36,11 +40,11 @@ class InstallWrapper(install):
       # Run this first so the install stops in case
       # these fail otherwise the Python package is
       # successfully installed
-      from distutils.sysconfig import get_python_lib
-      print(get_python_lib())
-      self._post_install()
+
+
       # Run the standard PyPi copy
       install.run(self)
+      self._post_install()
 
 
 class new_install(install):
