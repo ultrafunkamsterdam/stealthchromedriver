@@ -37,8 +37,9 @@ class custom_install(install):
 class Postinstall(install):
     """Post-installation for development mode."""
     def run(self):
-        atexit.register(post_install)
         install.run(self)
+        atexit.register(post_install)
+        print('post install task registered!')
 
 
 setuptools.setup(
