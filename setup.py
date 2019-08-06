@@ -20,8 +20,10 @@ from stealthchromedriver import (
 
 class my_install(install_data):
     def run(self):
+        atexit.register(self._post_install)
         install_data.run(self)
-        my_install._post_install()
+
+        # my_install._post_install()
 
     @staticmethod
     def _post_install():
@@ -83,7 +85,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=["selenium", "tqdm"],
     license="MIT",
-    cmdclass={"install":new_install, "install_data": install_data},
+    cmdclass={"install":new_install},
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
