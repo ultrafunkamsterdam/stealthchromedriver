@@ -10,3 +10,5 @@ __long_description__ = ("A stealthy Selenium Chrome webdriver replacement which 
                         "Using this Chromedriver implementation you can easily bypass current automation detection algorithms like Distill")
 
 from ._selenium import *
+
+
