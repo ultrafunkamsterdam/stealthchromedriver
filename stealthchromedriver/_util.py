@@ -74,7 +74,7 @@ def _check_binaries_exist(check_path=None) -> None:
             ) as zip:
 
                 print(
-                    f'Extracting ChromeDriver archive to {chrome_path)}'
+                    f'Extracting ChromeDriver archive to {chrome_path}'
                 )
 
                 members = zip.namelist()
