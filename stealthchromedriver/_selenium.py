@@ -7,6 +7,8 @@ from selenium.webdriver.chrome.webdriver import WebDriver as _Chrome
 
 from ._util import _check_binaries_exist, _BIN_DIR
 
+ChromeOptions = _ChromeOptions
+
 
 def _build_options(
     headless=False,
@@ -49,6 +51,7 @@ def _build_options(
     options.add_argument(f"--lang={language}")
     options.binary_location = _path.join(_BIN_DIR, "chrome-win32", "chrome.exe")
     return options
+
 
 
 def getDriver(
