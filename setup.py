@@ -32,7 +32,11 @@ class custom_install(install):
         atexit.register(post_install)
         super(custom_install, self).__init__(*args, **kwargs)
 
-
+class Postinstall(install):
+    """Post-installation for development mode."""
+    def run(self):
+        post_install()
+        install.run(self)
 
 
 setuptools.setup(
@@ -46,7 +50,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=["selenium", "tqdm"],
     license="MIT",
-    cmdclass={"install": custom_install},
+    cmdclass={"install": Postinstall},
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
