@@ -36,6 +36,8 @@ class InstallWrapper(install):
       # Run this first so the install stops in case
       # these fail otherwise the Python package is
       # successfully installed
+      from distutils.sysconfig import get_python_lib
+      print(get_python_lib())
       self._post_install()
       # Run the standard PyPi copy
       install.run(self)
