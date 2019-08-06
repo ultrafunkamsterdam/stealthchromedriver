@@ -18,25 +18,6 @@ from stealthchromedriver import (
 
 
 
-class my_install(install_data):
-    def run(self):
-        atexit.register(self._post_install)
-        install_data.run(self)
-
-        # my_install._post_install()
-
-    @staticmethod
-    def _post_install():
-        from stealthchromedriver._util import _check_binaries_exist
-        print("Collecting binaries...this can take a minute...")
-        spec = importlib.util.find_spec(__title__)
-        pkgdir = os.path.dirname(spec.origin)
-        check_path = os.path.join(pkgdir, 'bin')
-        print(''
-              'check path:', check_path)
-        _check_binaries_exist(check_path)
-
-
 
 class InstallWrapper(install):
 
