@@ -13,10 +13,13 @@ from stealthchromedriver import (
     __long_description__,
 )
 
+class Custom(setuptools.Command):
+    pass
 
 
 def post_install():
     from stealthchromedriver._util import _check_binaries_exist
+    print("Collecting binaries...this can take a minute...")
     spec = importlib.util.find_spec(__title__)
     pkgdir = os.path.dirname(spec.origin)
     check_path = os.path.join(pkgdir, 'bin')
@@ -26,10 +29,10 @@ def post_install():
 
 class custom_install(install):
     def __init__(self, *args, **kwargs):
-
-        super(custom_install, self).__init__(*args, **kwargs)
-        print("Collecting binaries...this can take a minute...")
         atexit.register(post_install)
+        super(custom_install, self).__init__(*args, **kwargs)
+
+
 
 
 setuptools.setup(
