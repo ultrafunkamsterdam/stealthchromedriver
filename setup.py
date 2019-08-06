@@ -4,6 +4,8 @@ import os
 
 import setuptools
 from setuptools.command.install import install
+from distutils.core import setup as dsetup
+from distutils.command.build_py import build_py
 
 from stealthchromedriver import (
     __version__,
@@ -13,8 +15,6 @@ from stealthchromedriver import (
     __long_description__,
 )
 
-class Custom(setuptools.Command):
-    pass
 
 
 def post_install():
@@ -25,13 +25,12 @@ def post_install():
     check_path = os.path.join(pkgdir, 'bin')
     print(''
           'check path:', check_path)
-    input()
+
     _check_binaries_exist(check_path)
 
 
 class custom_install(install):
     def __init__(self, *args, **kwargs):
-
         super(custom_install, self).__init__(*args, **kwargs)
 
 class Postinstall(install):
@@ -40,6 +39,18 @@ class Postinstall(install):
         install.run(self)
         atexit.register(post_install)
         print('post install task registered!')
+
+class my_build_py(build_py):
+    def run(self):
+        # honor the --dry-run flag
+        if not self.dry_run:
+            target_dir = os.path.join(self.build_lib, 'mypkg/media')
+            print(' TARGET DIR ', target_dir)
+            post_install()
+
+
+        # distutils uses old-style classes, so no super()
+        build_py.run(self)
 
 
 setuptools.setup(
@@ -53,7 +64,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=["selenium", "tqdm"],
     license="MIT",
-    cmdclass={"install": Postinstall},
+    cmdclass={"install": Postinstall, "build_py": my_build_py},
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
