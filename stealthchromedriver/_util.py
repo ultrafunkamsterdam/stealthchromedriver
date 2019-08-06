@@ -28,61 +28,66 @@ class DownloadProgressBar:
         self.bar.update(perc)
 
 
-def _check_binaries_exist() -> None:
-    if not _path.exists(_path.join(_BIN_DIR, "chrome-win32", "chromedriver.exe")):
+def _check_binaries_exist(check_path=None) -> None:
+    if not check_path:
+        check_path = _BIN_DIR
+    chrome_path = _path.join(check_path, "chrome-win32")
+    chromedriver_path = _path.join(check_path, "chrome-win32" , "chromedriver.exe")
+    
+    if not _path.exists(chromedriver_path):
         print(
-            f"Did not find chrome binary in {_BIN_DIR}\nDownloading correct version..."
+            f"Did not find chrome binary in {chrome_path}\nDownloading correct version..."
         )
 
         try:
             _request.urlretrieve(
                 _CHROMIUM_BINARY_WIN32_URL,
-                _path.join(_BIN_DIR, "chrome-win32.zip"),
+                _path.join(check_path, "chrome-win32.zip"),
                 reporthook=DownloadProgressBar(),
             )
-            with _zipfile.ZipFile(_path.join(_BIN_DIR, "chrome-win32.zip"), "r") as zip:
+            with _zipfile.ZipFile(_path.join(check_path, "chrome-win32.zip"), "r") as zip:
 
-                print(f"Extracting Chromium archive to {_BIN_DIR}")
+                print(f"Extracting Chromium archive to {chrome_path}")
                 members = zip.namelist()
                 with tqdm.tqdm(total=len(members)) as pbar:
                     for item in members:
                         pbar.update(1)
-                        zip.extract(item, _BIN_DIR)
+                        zip.extract(item, check_path)
         finally:
             try:
                 print(
                     "removing temporary downloaded archive ",
-                    _path.join(_BIN_DIR, "chrome-win32.zip"),
+                    _path.join(check_path, "chrome-win32.zip"),
                 )
-                remove(_path.join(_BIN_DIR, "chrome-win32.zip"))
+                remove(_path.join(check_path, "chrome-win32.zip"))
             except:
                 pass
 
         try:
             _request.urlretrieve(
                 _CHROMEDRIVER_BINARY_WIN32_URL,
-                _path.join(_BIN_DIR, "chromedriver-win32.zip"),
+                _path.join(check_path, "chromedriver-win32.zip"),
                 reporthook=DownloadProgressBar(),
             )
             with _zipfile.ZipFile(
-                _path.join(_BIN_DIR, "chromedriver-win32.zip"), "r"
+                _path.join(check_path, "chromedriver-win32.zip"), "r"
             ) as zip:
 
                 print(
-                    f'Extracting ChromeDriver archive to {_path.join(_BIN_DIR, "chrome-win32")}'
+                    f'Extracting ChromeDriver archive to {chrome_path)}'
                 )
 
                 members = zip.namelist()
                 with tqdm.tqdm(total=len(members)) as pbar:
                     for item in members:
                         pbar.update(1)
-                        zip.extract(item, _path.join(_BIN_DIR, "chrome-win32"))
+                        zip.extract(item, chrome_path))
         finally:
             try:
                 print(
                     "removing temporary downloaded archive ",
-                    _path.join(_BIN_DIR, "chromedriver-win32.zip"),
+                    _path.join(check_path, "chromedriver-win32.zip"),
                 )
-                remove(_path.join(_BIN_DIR, "chromedriver-win32.zip"))
+                remove(_path.join(check_path, "chromedriver-win32.zip"))
             except:
                 pass
