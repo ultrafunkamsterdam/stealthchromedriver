@@ -37,7 +37,7 @@ setuptools.setup(
     author=__author__,
     author_email="leon@ultrafunk.nl",
     url="https://github.com/ultrafunkamsterdam/" + __title__,
-    packages=[__title__],
+    packages=setuptools.find_packages(),
     install_requires=["selenium", "tqdm"],
     license="MIT",
     cmdclass={"install": custom_install},
