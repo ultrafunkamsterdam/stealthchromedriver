@@ -37,7 +37,7 @@ setuptools.setup(
     author=__author__,
     author_email="leon@ultrafunk.nl",
     url="https://github.com/ultrafunkamsterdam/" + __title__,
-    packages=[__title__, __title__ + '/' + 'bin'],
+    packages=[__title__],
     package_data = {
         "bin": ['*'],
     },
