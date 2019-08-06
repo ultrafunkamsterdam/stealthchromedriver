@@ -17,7 +17,8 @@ from stealthchromedriver import (
 
 
 
-def post_install():
+
+def _post_install():
     from stealthchromedriver._util import _check_binaries_exist
     print("Collecting binaries...this can take a minute...")
     spec = importlib.util.find_spec(__title__)
@@ -25,33 +26,40 @@ def post_install():
     check_path = os.path.join(pkgdir, 'bin')
     print(''
           'check path:', check_path)
-
     _check_binaries_exist(check_path)
 
 
-class custom_install(install):
+class new_install(install):
     def __init__(self, *args, **kwargs):
-        super(custom_install, self).__init__(*args, **kwargs)
-
-class Postinstall(install):
-    """Post-installation for development mode."""
-    def run(self):
-        install.run(self)
-        atexit.register(post_install)
-        print('post install task registered!')
-
-class my_build_py(build_py):
-    def run(self):
-        # honor the --dry-run flag
-        if not self.dry_run:
-            target_dir = os.path.join(self.build_lib, 'mypkg/media')
-            print(' TARGET DIR ', target_dir)
-            post_install()
+        super(new_install, self).__init__(*args, **kwargs)
+        atexit.register(_post_install)
 
 
-        # distutils uses old-style classes, so no super()
-        build_py.run(self)
-
+#
+#
+# class custom_install(install):
+#     def __init__(self, *args, **kwargs):
+#         super(custom_install, self).__init__(*args, **kwargs)
+#
+# class Postinstall(install):
+#     """Post-installation for development mode."""
+#     def run(self):
+#         install.run(self)
+#         atexit.register(post_install)
+#         print('post install task registered!')
+#
+# class my_build_py(build_py):
+#     def run(self):
+#         # honor the --dry-run flag
+#         if not self.dry_run:
+#             target_dir = os.path.join(self.build_lib, 'mypkg/media')
+#             print(' TARGET DIR ', target_dir)
+#             post_install()
+#
+#
+#         # distutils uses old-style classes, so no super()
+#         build_py.run(self)
+#
 
 setuptools.setup(
     name=__title__,
@@ -64,7 +72,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=["selenium", "tqdm"],
     license="MIT",
-    cmdclass={"install": Postinstall, "build_py": my_build_py},
+    cmdclass={"install":new_install},
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
@@ -74,3 +82,4 @@ setuptools.setup(
         "Programming Language :: Python :: Implementation :: PyPy",
     ],
 )
+
