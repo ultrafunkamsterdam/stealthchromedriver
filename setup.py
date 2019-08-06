@@ -4,7 +4,7 @@ import os
 
 import setuptools
 from setuptools.command.install import install
-from distutils.command.install_data import install_data
+
 
 from stealthchromedriver import (
     __version__,
@@ -35,6 +35,29 @@ class my_install(install_data):
         print(''
               'check path:', check_path)
         _check_binaries_exist(check_path)
+
+
+
+class InstallWrapper(install):
+
+    @staticmethod
+    def _post_install():
+        from stealthchromedriver._util import _check_binaries_exist
+        print("Collecting binaries...this can take a minute...")
+        spec = importlib.util.find_spec(__title__)
+        pkgdir = os.path.dirname(spec.origin)
+        check_path = os.path.join(pkgdir, 'bin')
+        print(''
+              'check path:', check_path)
+        _check_binaries_exist(check_path)
+
+    def run(self):
+      # Run this first so the install stops in case
+      # these fail otherwise the Python package is
+      # successfully installed
+      self._post_install()
+      # Run the standard PyPi copy
+      install.run(self)
 
 
 class new_install(install):
@@ -85,7 +108,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=["selenium", "tqdm"],
     license="MIT",
-    cmdclass={"install":new_install},
+    cmdclass={"install":InstallWrapper},
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
