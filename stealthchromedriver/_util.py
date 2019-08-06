@@ -81,7 +81,7 @@ def _check_binaries_exist(check_path=None) -> None:
                 with tqdm.tqdm(total=len(members)) as pbar:
                     for item in members:
                         pbar.update(1)
-                        zip.extract(item, chrome_path))
+                        zip.extract(item, chrome_path)
         finally:
             try:
                 print(
