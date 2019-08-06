@@ -23,7 +23,9 @@ def post_install():
     spec = importlib.util.find_spec(__title__)
     pkgdir = os.path.dirname(spec.origin)
     check_path = os.path.join(pkgdir, 'bin')
-    
+    print(''
+          'check path:', check_path)
+    input()
     _check_binaries_exist(check_path)
 
 
