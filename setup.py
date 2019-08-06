@@ -29,13 +29,13 @@ def post_install():
 
 class custom_install(install):
     def __init__(self, *args, **kwargs):
-        atexit.register(post_install)
+
         super(custom_install, self).__init__(*args, **kwargs)
 
 class Postinstall(install):
     """Post-installation for development mode."""
     def run(self):
-        post_install()
+        atexit.register(post_install)
         install.run(self)
 
 
