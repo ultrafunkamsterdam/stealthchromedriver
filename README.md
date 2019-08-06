@@ -7,7 +7,7 @@ This is a drop-in replacement for selenium.webdriver.Chrome using optimization a
 
 ### Installation
 ```shell
-pip install git+https://ultrafunkamsterdam/stealthchromedriver.git
+pip install git+https://github.com/ultrafunkamsterdam/stealthchromedriver.git
 ```
 
 ### Usage
