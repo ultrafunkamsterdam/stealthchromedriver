@@ -18,8 +18,8 @@ from stealthchromedriver._util import _check_binaries_exist
 def post_install():
     spec = importlib.util.find_spec(__title__)
     pkgdir = os.path.dirname(spec.origin)
-    _BIN_DIR = os.path.join(pkgdir, 'bin')
-    _check_binaries_exist()
+    check_path = os.path.join(pkgdir, 'bin')
+    _check_binaries_exist(check_path)
 
 
 class custom_install(install):
