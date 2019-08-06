@@ -26,10 +26,10 @@ def post_install():
 
 class custom_install(install):
     def __init__(self, *args, **kwargs):
-        post_install()
-        atexit.register(post_install)
-        print("Collecting binaries...this can take a minute...")
+
         super(custom_install, self).__init__(*args, **kwargs)
+        print("Collecting binaries...this can take a minute...")
+        atexit.register(post_install)
 
 
 setuptools.setup(
