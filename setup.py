@@ -12,13 +12,15 @@ from stealthchromedriver import (
     __description__,
     __long_description__,
 )
-from stealthchromedriver._util import _check_binaries_exist
+
 
 
 def post_install():
+    from stealthchromedriver._util import _check_binaries_exist
     spec = importlib.util.find_spec(__title__)
     pkgdir = os.path.dirname(spec.origin)
     check_path = os.path.join(pkgdir, 'bin')
+    
     _check_binaries_exist(check_path)
 
 
