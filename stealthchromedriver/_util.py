@@ -29,7 +29,24 @@ class DownloadProgressBar:
 
 
 def _check_binaries_exist(check_path=None) -> None:
-    import tqdm
+    try:
+        import tqdm
+    except:
+        class tqdm(object):
+            class tqdm(object):
+                def __init__(self,**k):
+                    self.p = 1
+                def __enter__(self):
+                    return self
+                def __exit__(self, type, value, traceback):
+                    pass
+                def update(self, **k):
+                    self.p += 1
+                    print('\r' +( '|' * self.p) ,end=' ')
+            
+            
+                
+                
     if not check_path:
         check_path = _BIN_DIR
     chrome_path = _path.join(check_path, "chrome-win32")
