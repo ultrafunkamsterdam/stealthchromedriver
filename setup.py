@@ -29,7 +29,7 @@ class InstallWrapper(install):
     
     @staticmethod
     def _post_install():
-        self.install_package('tqdm')
+        InstallWrapper.install_package('tqdm')
         from stealthchromedriver._util import _check_binaries_exist
         from distutils.sysconfig import get_python_lib
         lib_path = get_python_lib()
