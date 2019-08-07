@@ -1,6 +1,6 @@
 
 import os
-
+import time
 import setuptools
 from setuptools.command.install import install
 
@@ -30,6 +30,11 @@ class InstallWrapper(install):
     @staticmethod
     def _post_install():
         InstallWrapper.install_package('tqdm')
+        time.sleep(3)
+        
+      
+    @staticmethod
+    def _post_install_2():
         from stealthchromedriver._util import _check_binaries_exist
         from distutils.sysconfig import get_python_lib
         lib_path = get_python_lib()
