@@ -15,10 +15,21 @@ from stealthchromedriver import (
 
 
 
-class InstallWrapper(install):
+   
 
+class InstallWrapper(install):
+    
+    @staticmethod
+    def install_package(name):
+        try:
+            from pip import main as pipmain
+        except ImportError:
+            from pip._internal import main as pipmain
+        pipmain(['install', name])
+    
     @staticmethod
     def _post_install():
+        self.install_package('tqdm')
         from stealthchromedriver._util import _check_binaries_exist
         from distutils.sysconfig import get_python_lib
         lib_path = get_python_lib()
