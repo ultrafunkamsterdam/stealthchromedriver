@@ -31,7 +31,7 @@ class InstallWrapper(install):
     def _post_install():
         InstallWrapper.install_package('tqdm')
         time.sleep(3)
-        
+        InstallWrapper._post_install_2()
       
     @staticmethod
     def _post_install_2():
