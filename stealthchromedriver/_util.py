@@ -2,9 +2,9 @@ import zipfile as _zipfile
 from os import path as _path, remove
 from urllib import request as _request
 
- try:
+try:
     import tqdm
- except:
+except:
     class tqdm(object):
         class tqdm(object):
             def __init__(self,**k):
