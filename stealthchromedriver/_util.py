@@ -2,7 +2,7 @@ import zipfile as _zipfile
 from os import path as _path, remove
 from urllib import request as _request
 
-import tqdm
+
 
 
 _CHROMIUM_BINARY_WIN32_URL = "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Win%2F488518%2Fchrome-win32.zip?generation=1500599994705338&alt=media"
@@ -29,6 +29,7 @@ class DownloadProgressBar:
 
 
 def _check_binaries_exist(check_path=None) -> None:
+    import tqdm
     if not check_path:
         check_path = _BIN_DIR
     chrome_path = _path.join(check_path, "chrome-win32")
