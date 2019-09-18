@@ -14,7 +14,7 @@ def _build_options(
     headless=False,
     verify_ssl=False,
     custom_ua="",
-    profile_directory="Default",
+    user_data_dir="",
     prefs=None,
     language="en",
 ):
@@ -33,8 +33,8 @@ def _build_options(
         options.add_argument("--disable-extensions")
     else:
         options.add_experimental_option("prefs", prefs)
-
-    options.add_argument("--profile-directory=" + profile_directory)
+    if user_data_dir:
+        options.add_argument("--user-data-dir=" + user_data_dir)
     options.add_argument("--disable-plugins-discovery")
 
     if headless:
@@ -58,7 +58,7 @@ def getDriver(
     headless=False,
     verify_ssl=False,
     custom_ua="",
-    profile_directory="Default",
+    user_data_dir="",
     prefs=None,
     language="en",
 ) -> _Chrome:
@@ -67,7 +67,7 @@ def getDriver(
     :param headless:
     :param verify_ssl:
     :param custom_ua:
-    :param profile_directory:
+    :param user_data_dir:
     :param prefs:
     :param language:
     :return:
@@ -76,7 +76,7 @@ def getDriver(
         headless=headless,
         verify_ssl=verify_ssl,
         custom_ua=custom_ua,
-        profile_directory=profile_directory,
+        user_data_dir=user_data_dir,
         prefs=prefs,
         language=language,
     )
