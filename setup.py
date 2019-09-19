@@ -5,14 +5,16 @@ import setuptools
 from setuptools.command.install import install
 
 
-from stealthchromedriver import (
-    __version__,
-    __title__,
-    __author__,
-    __description__,
-    __long_description__,
-)
+# from stealthchromedriver import (
+#     __version__,
+#     __title__,
+#     __author__,
+#     __description__,
+#     __long_description__,
+# )
 
+with open('./stealthchromedriver/__meta__.py') as fp:
+    exec(fp.read())
 
 
    
