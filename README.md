@@ -1,4 +1,16 @@
 
+
+# DON'T USE THIS REPO, PLEASE USE MY undetected_chromedriver #
+ (https://github.com/ultrafunkamsterdam/undetected_chromedriver)
+
+
+
+
+
+
+
+
+.
 # STEALTHCHROMEDRIVER
 ### Selenium Chromedriver which PASSES Distil browser automation test
 
