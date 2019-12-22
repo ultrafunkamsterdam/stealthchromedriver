@@ -1,7 +1,7 @@
 
 
-# DON'T USE THIS REPO, PLEASE USE MY undetected_chromedriver #
- (https://github.com/ultrafunkamsterdam/undetected_chromedriver)
+# DON'T USE THIS REPO, PLEASE USE MY undetected-chromedriver project #
+ (https://github.com/ultrafunkamsterdam/undetected-chromedriver)
 
 
 
